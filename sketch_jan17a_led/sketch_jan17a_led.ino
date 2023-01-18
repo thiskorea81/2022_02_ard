@@ -21,8 +21,8 @@ void setup(){
 }
 
 void loop(){
-  randNum=random(10, 100);
-  randPin=random(10, 13);
+  randNum=random(10, 100);    // 랜덤 켜저있는 시간(10~99)
+  randPin=random(10, 13);     // 랜덤 핀 번호(10~12)
   Serial.println(randNum);
   led(randPin, randNum, 100);
   ledOff(randPin);
