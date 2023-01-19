@@ -17,5 +17,14 @@ void loop() {
   //** Convert to the digital value(0 - 255)
   int digitalValue = (int)sensorValue * (255.0 / 1023.0);
   Serial.println(digitalValue);
-  analogWrite(red, digitalValue);  
+  if (digitalValue>250){
+    Serial.println("dark");
+    digitalWrite(red, HIGH);
+  }
+  else{
+    Serial.println("bright");
+    digitalWrite(red, LOW);
+  }
+  // analogWrite(red, digitalValue);
+  delay(1000);  
 }
