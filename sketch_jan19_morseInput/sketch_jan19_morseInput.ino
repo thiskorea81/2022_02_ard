@@ -2,14 +2,6 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(9, OUTPUT);
-
-  Serial.println("          x      x");
-  Serial.println("        x   x  x   x");
-  Serial.println("         x       x");
-  Serial.println("           x    x");
-  Serial.println("             xx");
-  
-
 }
 
 void loop() {
