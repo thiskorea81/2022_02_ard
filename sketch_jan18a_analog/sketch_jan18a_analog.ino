@@ -5,6 +5,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(red, OUTPUT);
 }
+int touchN=0;
 
 void loop() {
   //** put your main code here, to run repeatedly:
@@ -20,11 +21,13 @@ void loop() {
   if (digitalValue>250){
     Serial.println("dark");
     digitalWrite(red, HIGH);
+    touchN++;
   }
   else{
     Serial.println("bright");
     digitalWrite(red, LOW);
   }
   // analogWrite(red, digitalValue);
+  Serial.println(touchN);
   delay(1000);  
 }
