@@ -1,11 +1,14 @@
 int red=11;
+bool flag=true;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(red, OUTPUT);
+  
 }
 int touchN=0;
+
 
 void loop() {
   //** put your main code here, to run repeatedly:
@@ -17,17 +20,31 @@ void loop() {
   // Serial.println(voltage);
   //** Convert to the digital value(0 - 255)
   int digitalValue = (int)sensorValue * (255.0 / 1023.0);
-  Serial.println(digitalValue);
-  if (digitalValue>250){
-    Serial.println("dark");
+  //Serial.println(sensorValue);
+  Serial.println(flag);
+  if (!flag && sensorValue>995){
+    //Serial.print("touched ");
+    //Serial.println(flag);
+    //Serial.println(sensorValue);
+    
     digitalWrite(red, HIGH);
     touchN++;
+    Serial.print(touchN);
+    Serial.print(", ");
+    Serial.println(sensorValue);    
+    
+    flag=true;  
   }
   else{
-    Serial.println("bright");
+    //Serial.print("untouched ");
+    //Serial.println(flag);
+    //Serial.println(sensorValue);
+    
+    //Serial.println("bright");
     digitalWrite(red, LOW);
+    flag=false;
   }
   // analogWrite(red, digitalValue);
-  Serial.println(touchN);
-  delay(1000);  
+  
+  delay(1000);
 }
