@@ -5,20 +5,51 @@ LED를 깜빡이게 하는 장치
 
 #define TRIG 7 //TRIG 핀 설정 (초음파 보내는 핀)
 #define ECHO 6 //ECHO 핀 설정 (초음파 받는 핀)
-#define LED 11 // led  핀 설정 (LED를 켜는 핀)
+#define rLED 11 // led  핀 설정 (LED를 켜는 핀) //red
+#define gLED 12                               //green
+#define bLED 13                               //blue
 
 void led(int pinN, int onTime=1000, int offTime=1000);  // 핀번호, 켜져있는시간, 꺼져있는시간, 디폴트 값은 1000ms
+long ultra();
 
 void setup() {
-
   Serial.begin(9600); //PC모니터로 센서값을 확인하기위해서 시리얼 통신을 정의해줍니다. 
-  pinMode(LED, OUTPUT);
+  pinMode(rLED, OUTPUT);
+  pinMode(gLED, OUTPUT);
+  pinMode(bLED, OUTPUT);
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
 }
 
 void loop(){
 
+  long distance;
+
+  distance = ultra(); 
+
+  if (distance<10){
+    //led(rLED, 50, 50);
+    safe(0);
+  }
+    
+  else if (distance<30){
+    //led(gLED, 100, 100);
+    safe(1);
+  }
+    
+  else{
+    //led(bLED, 500, 500);
+    safe(1);
+  }
+    
+
+  delay(500); //1초마다 측정값을 보여줍니다.
+}
+void safe(bool x){
+  digitalWrite(gLED, x);
+  digitalWrite(rLED, !x);
+}
+long ultra(){
   long duration, distance;
 
   digitalWrite(TRIG, LOW);
@@ -41,13 +72,8 @@ void loop(){
   Serial.print("\nDIstance : ");
   Serial.print(distance); //측정된 물체로부터 거리값(cm값)을 보여줍니다.
   Serial.println(" Cm");
-
-  if (distance<10)
-    led(LED, 50, 50);
-
-  delay(1000); //1초마다 측정값을 보여줍니다.
+  return distance;
 }
-
 void led(int pinN, int onTime, int offTime){
   digitalWrite(pinN, HIGH);
   delay(onTime);
